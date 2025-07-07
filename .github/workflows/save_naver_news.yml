@@ -1,0 +1,34 @@
+name: downloading naver ranked news
+
+on:
+  schedule:
+    - cron: "45 6 * * *"  # KST 15:45
+  workflow_dispatch: {}
+  
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+        fetch-depth: 0
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Run KRX script
+      run: |
+        ./save_naver_news.py
+    - name: Commits
+      run: |
+        git config --local user.email "kyungtak.hur@gmail.com"
+        git config --local user.name "KT"
+        git add .
+        git commit -m "[AUTO] Daily KOSPI RS rating"
+    - name: Push
+      uses: ad-m/github-push-action@master
+      with:
+        branch: 'main'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
