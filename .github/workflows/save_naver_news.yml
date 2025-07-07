@@ -32,7 +32,7 @@ jobs:
         git config --local user.email "kyungtak.hur@gmail.com"
         git config --local user.name "KT"
         git add .
-        git commit -m "[AUTO] Daily KOSPI RS rating"
+        git commit -m "[AUTO] Daily save naver ranked news"
     - name: Push
       uses: ad-m/github-push-action@master
       with:
